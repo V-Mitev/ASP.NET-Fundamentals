@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MVCIntroDemo.Models;
+using Products.Models;
 using System.Diagnostics;
 
-namespace MVCIntroDemo.Controllers
+namespace Products.Controllers
 {
     public class HomeController : Controller
     {
@@ -15,30 +15,12 @@ namespace MVCIntroDemo.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.Message = "Hello world!";
             return View();
         }
 
         public IActionResult Privacy()
         {
             return View();
-        }
-
-        public IActionResult About()
-        {
-            ViewBag.Message = "This is an ASP.NET Core MVC app.";
-            return View();
-        }
-
-        public IActionResult Numbers()
-        {
-            return View();
-        }
-
-        public IActionResult NumbersToN(int count = -1)
-        {
-            ViewData["Count"] = count;
-            return this.View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
