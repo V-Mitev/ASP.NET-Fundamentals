@@ -36,7 +36,7 @@ namespace ForumApp.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Add(PostFormViewModel model)
-        {   
+        {
             var post = new Post()
             {
                 Title = model.Title,
@@ -49,9 +49,10 @@ namespace ForumApp.Controllers
             return View();
         }
 
+        [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
-            var post = await data.Posts.FindAsync(id);
+            var post = await data.Posts.FirstAsync(p => p.Id.ToString() == id);
 
             return View(new PostFormViewModel()
             {
@@ -63,10 +64,22 @@ namespace ForumApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(string id, PostFormViewModel model)
         {
-            var post = await data.Posts.FindAsync(id);
+            var post = await data.Posts.FirstAsync(p => p.Id.ToString() == id);
 
             post.Title = model.Title;
             post.Content = model.Content;
+
+            await data.SaveChangesAsync();
+
+            return RedirectToAction("All", "Post");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(string id)
+        {
+            var post = await data.Posts.FirstAsync(p => p.Id.ToString() == id);
+
+            data.Posts.Remove(post);
 
             await data.SaveChangesAsync();
 
