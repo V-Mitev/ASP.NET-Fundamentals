@@ -6,11 +6,11 @@ namespace ForumApp.ViewModels.Post
     public class PostFormViewModel
     {
         [Required]
-        [StringLength(TitleMaxLength, MinimumLength = TitleMinLength)]
+        [StringLength(PostTitleMaxLength, MinimumLength = PostTitleMinLength)]
         public string Title { get; set; } = null!;
 
         [Required]
-        [StringLength(ContentMaxLength, MinimumLength = ContentMinLength)]
+        [StringLength(PostContentMaxLength, MinimumLength = PostContentMinLength)]
         public string Content { get; set; } = null!;
     }
 }

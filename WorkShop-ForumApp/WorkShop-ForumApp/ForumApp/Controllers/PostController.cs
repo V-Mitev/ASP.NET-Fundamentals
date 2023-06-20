@@ -1,34 +1,27 @@
-﻿using ForumApp.Data;
+﻿using ForumApp.Contracts;
 using ForumApp.Data.Models;
 using ForumApp.ViewModels.Post;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace ForumApp.Controllers
 {
     public class PostController : Controller
     {
-        private readonly ForumAppDbContext data;
+        private readonly IPostService service;
 
-        public PostController(ForumAppDbContext data)
+        public PostController(IPostService service)
         {
-            this.data = data;
+            this.service = service;
         }
 
         public async Task<IActionResult> All()
         {
-            var posts = await data.Posts
-                .Select(p => new PostViewModel()
-                {
-                    Id = p.Id.ToString(),
-                    Title = p.Title,
-                    Content = p.Content
-                })
-                .ToListAsync();
+            var model = await service.AllAsync();
 
-            return View(posts);
+            return View(model);
         }
 
+        [HttpGet]
         public IActionResult Add()
         {
             return View();
@@ -37,39 +30,58 @@ namespace ForumApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(PostFormViewModel model)
         {
-            var post = new Post()
+            if (!ModelState.IsValid)
             {
-                Title = model.Title,
-                Content = model.Content
-            };
+                return RedirectToAction("All", "Post");
+            }
 
-            await data.Posts.AddAsync(post);
-            await data.SaveChangesAsync();
+            try
+            {
+                await service.AddPostAsync(model);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError(string.Empty, "Unexpected error occurred while adding your post!");
 
-            return View();
+                return View(model);
+            }
+
+            return RedirectToAction("All", "Post");
         }
 
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
-            var post = await data.Posts.FirstAsync(p => p.Id.ToString() == id);
-
-            return View(new PostFormViewModel()
+            try
             {
-                Title = post.Title,
-                Content = post.Content
-            });
+                PostFormViewModel postModel = await service.EditPostAsync(id);
+
+                return View(postModel);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("All", "Post");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Edit(string id, PostFormViewModel model)
         {
-            var post = await data.Posts.FirstAsync(p => p.Id.ToString() == id);
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
 
-            post.Title = model.Title;
-            post.Content = model.Content;
+            try
+            {
+                await service.EditByIdAsync(id, model);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError(string.Empty, "Unexpected error occurred while updating your post!");
 
-            await data.SaveChangesAsync();
+                return View(model);
+            }
 
             return RedirectToAction("All", "Post");
         }
@@ -77,11 +89,14 @@ namespace ForumApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(string id)
         {
-            var post = await data.Posts.FirstAsync(p => p.Id.ToString() == id);
+            try
+            {
+                await service.DeleteByIdAsync(id);
+            }
+            catch (Exception)
+            {
 
-            data.Posts.Remove(post);
-
-            await data.SaveChangesAsync();
+            }
 
             return RedirectToAction("All", "Post");
         }

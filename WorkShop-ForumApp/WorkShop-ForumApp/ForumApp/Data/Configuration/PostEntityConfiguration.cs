@@ -7,17 +7,16 @@ namespace ForumApp.Data.Configuration
 {
     public class PostEntityConfiguration : IEntityTypeConfiguration<Post>
     {
-        private readonly PostSeeder posts;
+        private readonly PostSeeder postSeeder;
 
         public PostEntityConfiguration()
         {
-            posts = new PostSeeder();
+            postSeeder = new PostSeeder();
         }
 
         public void Configure(EntityTypeBuilder<Post> builder)
         {
-            builder
-                .HasData(posts.GeneratePosts());
+            builder.HasData(postSeeder.GeneretePosts());
         }
     }
 }

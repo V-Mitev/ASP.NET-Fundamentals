@@ -16,7 +16,7 @@ namespace ForumApp.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new PostEntityConfiguration());
+            modelBuilder.ApplyConfiguration<Post>(new PostEntityConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

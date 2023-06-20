@@ -12,13 +12,13 @@ namespace ForumApp.Data.Models
 
         [Key]
         public Guid Id { get; set; }
-        
+
         [Required]
-        [MaxLength(TitleMaxLength)]
+        [MaxLength(PostTitleMaxLength)]
         public string Title { get; set; } = null!;
 
         [Required]
-        [MaxLength(ContentMaxLength)]
+        [MaxLength(PostContentMaxLength)]
         public string Content { get; set; } = null!;
     }
 }

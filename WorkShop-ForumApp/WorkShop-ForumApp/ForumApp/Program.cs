@@ -1,4 +1,6 @@
+using ForumApp.Contracts;
 using ForumApp.Data;
+using ForumApp.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace ForumApp
@@ -8,9 +10,7 @@ namespace ForumApp
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnectionString");
-
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
@@ -18,6 +18,8 @@ namespace ForumApp
             {
                 options.UseSqlServer(connectionString);
             });
+
+            builder.Services.AddScoped<IPostService, PostService>();
 
             var app = builder.Build();
 
