@@ -47,5 +47,30 @@ namespace Homies.Controllers
 
             return RedirectToAction("All", "Event");
         }
+
+        public async Task<IActionResult> Joined()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var events = await eventService.EventParticipants(userId);
+
+            return View(events);
+        }
+
+        public async Task<IActionResult> Join(string id)
+        {
+            try
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                await eventService.JoinEventAsync(int.Parse(id), userId);
+
+                return RedirectToAction("Joined", "Event");
+            }
+            catch
+            {
+                return RedirectToAction("All", "Event");
+            }
+        }
     }
 }

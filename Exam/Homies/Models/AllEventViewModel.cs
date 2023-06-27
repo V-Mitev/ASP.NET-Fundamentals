@@ -6,7 +6,7 @@
 
         public string Name { get; set; } = null!;
 
-        public DateTime Start { get; set; }
+        public string Start { get; set; } = null!;
 
         public string Type { get; set; } = null!;
 
