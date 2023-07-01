@@ -10,9 +10,14 @@ namespace Homies.Contracts
 
         public Task<ICollection<TypeViewModel>> GetTypeViewModelAAsync();
 
-        public Task<ICollection<AllEventViewModel>> EventParticipants(string userId);
+        public Task<ICollection<AllEventViewModel>> GetJoinedEventsAsync(string userId);
 
         public Task JoinEventAsync(int eventId, string userId);
 
+        public Task LeaveEventAsync(int eventId, string userId);
+
+        public Task EditEventAsync(AddEventViewModel model);
+
+        public Task<AddEventViewModel> FindEventAsync(int eventId);
     }
 }
