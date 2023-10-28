@@ -1,5 +1,10 @@
 namespace DemoAPI
 {
+    using DemoAPI.Data.Data;
+    using DemoAPI.Data.Repository;
+    using MediatR;
+    using Microsoft.EntityFrameworkCore;
+
     public class Program
     {
         public static void Main(string[] args)
@@ -8,10 +13,19 @@ namespace DemoAPI
 
             // Add services to the container.
 
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+            builder.Services.AddDbContext<DemoApiDbContext>(options =>
+            {
+                options.UseSqlServer(connectionString);
+            });
+
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddScoped<IDemoApiRepository, DemoApiRepository>();
+            builder.Services.AddMediatR(typeof(DemoApiDbContext).Assembly);
 
             var app = builder.Build();
 
