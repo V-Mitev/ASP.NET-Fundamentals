@@ -1,8 +1,10 @@
 namespace DemoAPI
 {
     using DemoAPI.Data.Data;
+    using DemoAPI.Data.Models;
     using DemoAPI.Data.Repository;
     using MediatR;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
 
     public class Program
@@ -26,6 +28,10 @@ namespace DemoAPI
             builder.Services.AddSwaggerGen();
             builder.Services.AddScoped<IDemoApiRepository, DemoApiRepository>();
             builder.Services.AddMediatR(typeof(DemoApiDbContext).Assembly);
+
+            builder.Services.AddIdentity<ApplicationUser, ApplicationRole>()
+                            .AddEntityFrameworkStores<DemoApiDbContext>()
+                            .AddDefaultTokenProviders();
 
             var app = builder.Build();
 

@@ -1,8 +1,9 @@
 ﻿namespace DemoAPI.Controllers
 {
-    using DemoAPI.Data.Commands;
+    using DemoAPI.Data.Commands.Person;
     using DemoAPI.Data.Models;
     using DemoAPI.Data.Quries;
+    using DemoAPI.Data.Quries.Person;
     using MediatR;
     using Microsoft.AspNetCore.Mvc;
 

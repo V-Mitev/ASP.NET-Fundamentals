@@ -13,5 +13,9 @@
         public Task<bool> DeletePersonAsync(int id);
 
         public Person UpdatePersonFirstNameById(int id, string newFirstName);
+
+        public Task<bool> AddRole(string roleName);
+
+        public List<ApplicationRole> GetAllRoles();
     }
 }

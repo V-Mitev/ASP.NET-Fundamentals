@@ -1,14 +1,13 @@
 ﻿namespace DemoAPI.Controllers
 {
+    using DemoAPI.Data.Commands.Role;
     using DemoAPI.Data.Models;
-    using DemoAPI.Data.Quries;
+    using DemoAPI.Data.Quries.Role;
     using MediatR;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(Roles = "Admin")]
     public class RoleController : Controller
     {
         private readonly IMediator mediator;
@@ -19,9 +18,15 @@
         }
 
         [HttpGet]
-        public async Task<List<Person>> Get()
+        public async Task<List<ApplicationRole>> GetAllRoles()
         {
-            return await mediator.Send(new GetPersonQurery());
+            return await mediator.Send(new GetAllRolesQuery());
+        }
+
+        [HttpPost]
+        public async Task AddRole(string roleName)
+        {
+            await mediator.Send(new AddRoleCommand(roleName));
         }
     }
 }

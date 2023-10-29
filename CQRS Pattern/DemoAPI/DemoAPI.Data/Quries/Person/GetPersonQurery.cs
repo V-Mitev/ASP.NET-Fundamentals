@@ -1,4 +1,4 @@
-﻿namespace DemoAPI.Data.Quries
+﻿namespace DemoAPI.Data.Quries.Person
 {
     using DemoAPI.Data.Models;
     using MediatR;

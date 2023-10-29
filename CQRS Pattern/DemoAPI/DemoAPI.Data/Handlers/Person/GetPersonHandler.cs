@@ -1,7 +1,7 @@
 ﻿namespace DemoAPI.Data.Handlers.Person
 {
     using DemoAPI.Data.Models;
-    using DemoAPI.Data.Quries;
+    using DemoAPI.Data.Quries.Person;
     using DemoAPI.Data.Repository;
     using MediatR;
     using System.Threading;

@@ -4,6 +4,7 @@ using DemoAPI.Data.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DemoAPI.Data.Migrations
 {
     [DbContext(typeof(DemoApiDbContext))]
-    partial class DemoApiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231029125441_UpdateDbWithNewEntities")]
+    partial class UpdateDbWithNewEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -132,7 +134,7 @@ namespace DemoAPI.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Persons", (string)null);
+                    b.ToTable("Persons");
 
                     b.HasData(
                         new
