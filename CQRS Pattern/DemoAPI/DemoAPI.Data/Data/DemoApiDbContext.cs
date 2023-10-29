@@ -2,9 +2,11 @@
 {
     using DemoAPI.Data.Data.Configuration;
     using DemoAPI.Data.Models;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
-    public class DemoApiDbContext : DbContext
+    public class DemoApiDbContext : IdentityDbContext<IdentityUser<Guid>, IdentityRole<Guid>, Guid>
     {
         public DemoApiDbContext(DbContextOptions<DemoApiDbContext> options) 
             : base(options)

@@ -1,11 +1,11 @@
-﻿namespace DemoAPI.Data.Handlers
+﻿namespace DemoAPI.Data.Handlers.Person
 {
     using MediatR;
-    using DemoAPI.Data.Commands;
     using DemoAPI.Data.Models;
     using DemoAPI.Data.Repository;
     using System.Threading;
     using System.Threading.Tasks;
+    using DemoAPI.Data.Commands.Person;
 
     public class AddPersonHandler : IRequestHandler<PersonAddCommand, Person>
     {

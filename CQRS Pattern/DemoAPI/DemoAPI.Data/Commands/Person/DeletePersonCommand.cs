@@ -1,4 +1,4 @@
-﻿namespace DemoAPI.Data.Commands
+﻿namespace DemoAPI.Data.Commands.Person
 {
     using MediatR;
 

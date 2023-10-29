@@ -1,6 +1,6 @@
-﻿namespace DemoAPI.Data.Handlers
+﻿namespace DemoAPI.Data.Handlers.Person
 {
-    using DemoAPI.Data.Commands;
+    using DemoAPI.Data.Commands.Person;
     using DemoAPI.Data.Models;
     using DemoAPI.Data.Repository;
     using MediatR;
